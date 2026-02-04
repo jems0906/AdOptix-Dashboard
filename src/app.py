@@ -56,14 +56,14 @@ tab1, tab2 = st.tabs(["Time Series", "Spend vs Return"])
 
 with tab1:
     fig_time = px.line(df, x='date', y='conversion_value', color='campaign_name', title='Daily Revenue by Campaign')
-    st.plotly_chart(fig_time, use_container_width=True)
+    st.plotly_chart(fig_time, width='stretch')
 
 with tab2:
     fig_scatter = px.scatter(metrics, x='spend', y='conversion_value', 
                              size='roas', color='campaign_name',
                              hover_data=['roas', 'cpa'],
                              title='Spend Efficiency (Size = ROAS)')
-    st.plotly_chart(fig_scatter, use_container_width=True)
+    st.plotly_chart(fig_scatter, width='stretch')
 
 # --- ML Recommendations ---
 st.divider()
@@ -86,7 +86,7 @@ for action, color in [('Increase Budget', 'green'), ('Decrease Budget', 'red'), 
         ))
 
 fig_recs.update_layout(title="Marginal ROAS by Campaign (Higher is Better)", yaxis_title="Marginal Revenue per $1 Spend", xaxis_title="Campaign")
-st.plotly_chart(fig_recs, use_container_width=True)
+st.plotly_chart(fig_recs, width='stretch')
 
 st.write("Detailed Recommendations:")
 st.dataframe(recs[['campaign_name', 'marginal_roas', 'model_confidence', 'recommended_action', 'budget_modifier']].sort_values('marginal_roas', ascending=False).style.format({
